@@ -1,0 +1,18 @@
+.idea/
+.vscode/
+
+# Binary files
+bin/
+dist/
+build/
+
+# Configuration files with secrets
+config.json
+config.yaml
+*.pem
+*.key
+*.crt
+
+# Temporary files
+*.tmp
+*.temp
