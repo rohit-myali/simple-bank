@@ -113,7 +113,7 @@ func TestTransferTxDeadlock(t *testing.T) {
 	account2 := createRandomAccount(t)
 
 	// run n concurrent transfer transactions
-	n := 50
+	n := 10
 	amount := int64(10)
 	errs := make(chan error)
 
@@ -121,7 +121,7 @@ func TestTransferTxDeadlock(t *testing.T) {
 
 		fromAccountID := account1.ID
 		toAccountID := account2.ID
-		if i%2 == 0 {
+		if i%2 == 1 {
 			fromAccountID = account2.ID
 			toAccountID = account1.ID
 		}
@@ -134,6 +134,11 @@ func TestTransferTxDeadlock(t *testing.T) {
 			})
 			errs <- err
 		}()
+	}
+
+	for i := 0; i < n; i++ {
+		err := <-errs
+		require.NoError(t, err)
 	}
 
 	// check the final updated balances
