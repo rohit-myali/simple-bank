@@ -34,4 +34,7 @@ test:
 fmt:
 	go fmt ./...
 
-.PHONY: postgres rmpostgres createdb dropdb migrateup migratedown
+server:
+	go run main.go
+
+.PHONY: postgres rmpostgres createdb dropdb migrateup migratedown sqlc fmt server
